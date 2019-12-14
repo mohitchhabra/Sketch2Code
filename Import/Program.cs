@@ -34,11 +34,11 @@ namespace Import
             string dataPath = Path.Combine(modelPath, "dataset.json");
             string imagesPath = Path.Combine(modelPath, "images");
 
-            var projectId = new Guid("fa6d6d1c-a9ef-4d92-9125-484a68f80dd5");
+          //  var projectId = new Guid("fa6d6d1c-a9ef-4d92-9125-484a68f80dd5");
             var images = JsonConvert.DeserializeObject<IEnumerable<Image>>(File.ReadAllText(dataPath));
 
             // Create tags, unless they already exist
-            var existingTags = trainingApi.GetTags(projectId);
+            var existingTags = trainingApi.GetTags(project.Id);
             var tagsToImport = images
                 .SelectMany(i => i.Tags
                     .Select(t => t.TagName))
@@ -49,7 +49,7 @@ namespace Import
                 foreach (var tag in tagsToImport) 
                 {
                     Console.WriteLine($"Importing {tag}");
-                    var newTag = trainingApi.CreateTag(projectId, tag);
+                    var newTag = trainingApi.CreateTag(project.Id, tag);
                     existingTags.Add(newTag);
                 }
             }
@@ -82,7 +82,7 @@ namespace Import
                     });
                 }
 
-                trainingApi.CreateImagesFromFiles(projectId, new ImageFileCreateBatch(imageFileEntries));
+                trainingApi.CreateImagesFromFiles(project.Id, new ImageFileCreateBatch(imageFileEntries));
 
                 images = images.Skip(BATCH_SIZE);
             }

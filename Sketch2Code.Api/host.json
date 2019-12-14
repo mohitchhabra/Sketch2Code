@@ -2,8 +2,8 @@
     "IsEncrypted": false,
     "Values": {
       "ObjectDetectionApiKey": "e6a1e13c173940889ef1e62f20031bac",
-      "ObjectDetectionProjectName": "demotestobjectdetect",
-      "ObjectDetectionPublishedModelName": "ObjectDetectionPublishedModelName",
+      "ObjectDetectionProjectName": "demotestobj",
+      "ObjectDetectionPublishedModelName": "Iteration1",
       "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=teststorageaidemo;AccountKey=SpjzF4KQu1rXAXP093V/WeH+duMsBKE1KOHivm48PK1L3CQq+qI0j3T4zJ5SIEoAKBnkHy/pxgeUn6L3A5secw==;EndpointSuffix=core.windows.net",
       "HandwrittenTextSubscriptionKey": "ComputerVisionKey",
       "HandwrittenTextApiEndpoint": "ComputerVisionEndpoint"

@@ -55,12 +55,12 @@ namespace Sketch2Code.AI
         {
             try
             {
-                string url = @"https://testcvdemo.cognitiveservices.azure.com/vision/v2.0/ocr?languag=unk&detectOrientation=true";
+                string url = @"https://cv1aiboot.cognitiveservices.azure.com/vision/v2.0/ocr?languag=unk&detectOrientation=true";
                 string responseContent;
                 using (var content = new ByteArrayContent(image))
                 {
                     content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    content.Headers.Add("Ocp-Apim-Subscription-Key", "ec0da51506d84f03be07e491c110c3e9");
+                    content.Headers.Add("Ocp-Apim-Subscription-Key", "ba1222dd88644efebc5a73e666684277");
                     var response = await Client.PostAsync(url, content);
                     response.EnsureSuccessStatusCode();
                     responseContent = await response.Content.ReadAsStringAsync();
