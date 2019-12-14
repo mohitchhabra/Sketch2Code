@@ -36,7 +36,7 @@ namespace Sketch2Code.Web.Controllers
         {
             byte[] buffer = null;
             HttpPostedFileBase file = Request.Files["imageData"];
-            
+
             //file or base64 content
             if (file == null) //check if image is submitted as base64
             {
@@ -71,13 +71,13 @@ namespace Sketch2Code.Web.Controllers
             await objectDetector.SaveResults(buffer, correlationID, "original.png");
 
             //Jump directly to progress
-            return View("step3", new ContentViewModel { CorrelationId= correlationID });
+            return View("step3", new ContentViewModel { CorrelationId = correlationID });
         }
 
         [HttpPost]
         public async Task<ActionResult> Step2FromSample()
         {
-            string Url =  Request.Url.Scheme + "://" + Request.Url.Authority + "/Content/img/sampledesigns/" + Request.Url.Segments[Request.Url.Segments.Length - 1] + ".jpg";
+            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + "/Content/img/sampledesigns/" + Request.Url.Segments[Request.Url.Segments.Length - 1] + ".jpg";
 
             byte[] buffer;
             var webRequest = WebRequest.Create(Url);
@@ -90,7 +90,7 @@ namespace Sketch2Code.Web.Controllers
                 img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 buffer = ms.ToArray();
             }
-            
+
             //Optimize size and quality for best performance
             buffer = ImageHelper.OptimizeImage(buffer, 100, 40);
 
@@ -115,7 +115,7 @@ namespace Sketch2Code.Web.Controllers
             var model = new ContentViewModel { ImageData = image };
             return View(model);
         }
-        [HttpPost]        
+        [HttpPost]
         public async Task<JsonResult> Upload()
         {
             //var image = Request["imageData"];
@@ -162,7 +162,7 @@ namespace Sketch2Code.Web.Controllers
                 await saveResults2(correlationId, objectDetector, groupBox, html);
             }
 
-            return Json(new { id = correlationId, generatedHtml=html });
+            return Json(new { id = correlationId, generatedHtml = html });
         }
 
         private static async Task saveResults(string correlationId, ObjectDetectionAppService objectDetector, byte[] content, System.Collections.Generic.IList<Core.Entities.PredictedObject> result, byte[] jsonContent)
@@ -174,7 +174,7 @@ namespace Sketch2Code.Web.Controllers
 
             //TODO: Store this as Text
             await objectDetector.SaveResults(jsonContent, correlationId, "results.json");
-            
+
         }
 
         private static async Task saveResults2(string correlationId, ObjectDetectionAppService objectDetector, GroupBox groupBox, string html)
@@ -200,7 +200,7 @@ namespace Sketch2Code.Web.Controllers
 
             //If generated HTML image is done pass it to the view
             //Check if the file is there in the storage
-            var model = new GeneratedHtmlModel { Html = html, FolderId=id };
+            var model = new GeneratedHtmlModel { Html = html, FolderId = id };
             return View(model);
         }
 
@@ -211,16 +211,16 @@ namespace Sketch2Code.Web.Controllers
         public async Task<ActionResult> Details(string id)
         {
 
-                var model = new PredictionDetailsViewModel();
+            var model = new PredictionDetailsViewModel();
 
-                model.Detail = await _objectDetectionAppService.GetPredictionAsync(id);
-                
-                if (model.Detail?.PredictedObjects != null)
-                {
-                    model.Name = id;
-                }
+            model.Detail = await _objectDetectionAppService.GetPredictionAsync(id);
 
-                return View("Details", model);
+            if (model.Detail?.PredictedObjects != null)
+            {
+                model.Name = id;
+            }
+
+            return View("Details", model);
 
         }
         public async Task<FileContentResult> File(string container, string fileName)
@@ -238,7 +238,7 @@ namespace Sketch2Code.Web.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         public async Task<JsonResult> SaveFile()
         {

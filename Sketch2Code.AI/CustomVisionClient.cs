@@ -67,7 +67,7 @@ namespace Sketch2Code.AI
 
         public async Task<PredictionResult> PredictImageAsync(byte[] imageData)
         {
-            string url1 = $"{CustomVisionEndpoint}/customvision/v3.0/Prediction/{_projectId}/detect/iterations/{_publishedModelName}/image";
+           // string url1 = $"{CustomVisionEndpoint}/customvision/v3.0/Prediction/{_projectId}/detect/iterations/{_publishedModelName}/image";
             string url = @"https://testdemo1.cognitiveservices.azure.com/customvision/v3.0/Prediction/fa6d6d1c-a9ef-4d92-9125-484a68f80dd5/detect/iterations/Iteration2/image";
             string responseContent;
             using (var content = new ByteArrayContent(imageData))
@@ -77,6 +77,7 @@ namespace Sketch2Code.AI
                 var response = await Client.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
                 responseContent = await response.Content.ReadAsStringAsync();
+
             }
 
             return JsonConvert.DeserializeObject<PredictionResult>(responseContent);

@@ -17,6 +17,7 @@ using Sketch2Code.Core.BoxGeometry;
 using Microsoft.Extensions.Logging;
 using Sketch2Code.AI.Entities;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using Line = Sketch2Code.AI.Entities.Line;
 
 namespace Sketch2Code.Core
 {
@@ -102,28 +103,28 @@ namespace Sketch2Code.Core
                 // It's an arrary of eight numbers represent the four points (x-coordinate, y-coordinate
                 // from the left-top corner of the image) of the detected rectangle from the left-top corner
                 // in the clockwise direction.
-                var xPoints = textLine.BoundingBox.Where((value, index) => index % 2 == 0).ToArray();
-                var yPoints = textLine.BoundingBox.Where((value, index) => index % 2 != 0).ToArray();
+               // var xPoints = textLine.BoundingBox.Where((value, index) => index % 2 == 0).ToArray();
+               // var yPoints = textLine.BoundingBox.Where((value, index) => index % 2 != 0).ToArray();
 
-                var min_x = xPoints.Min();
-                var min_y = yPoints.Min();
+                //var min_x = xPoints.Min();
+                //var min_y = yPoints.Min();
 
-                var max_x = xPoints.Max();
-                var max_y = yPoints.Max();
+                //var max_x = xPoints.Max();
+                //var max_y = yPoints.Max();
 
-                b.Left = min_x;
-                b.Top = min_y;
-                b.Width = max_x - min_x;
-                b.Height = max_y - min_y;
+                //b.Left = min_x;
+                //b.Top = min_y;
+                //b.Width = max_x - min_x;
+                //b.Height = max_y - min_y;
 
-                //If boxes overlaps more than 50% we decide they are the same thing
-                if (ovl.OverlapArea(predictedObject.BoundingBox, b) > 0.5)
-                {
-                    for(int j = 0; j < textLine.Words.Count; j++)
-                    { 
-                        predictedObject.Text.Add(textLine.Words[j].Text);
-                    }
-                }
+                ////If boxes overlaps more than 50% we decide they are the same thing
+                //if (ovl.OverlapArea(predictedObject.BoundingBox, b) > 0.5)
+                //{
+                //    for(int j = 0; j < textLine.Words.Count; j++)
+                //    { 
+                //        predictedObject.Text.Add(textLine.Words[j].Text);
+                //    }
+                //}
             }
         }
 
@@ -314,7 +315,7 @@ namespace Sketch2Code.Core
 
                 //Execute BoxGeometry methods
                 BoxGeometry.Geometry g = new BoxGeometry.Geometry();
-                g.RemoveOverlapping(list);
+               // g.RemoveOverlapping(list);
 
                 BoxGeometry.GroupBox root = g.BuildGroups(list);
                 return root;
