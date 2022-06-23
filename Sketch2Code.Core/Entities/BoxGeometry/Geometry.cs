@@ -179,8 +179,16 @@ namespace Sketch2Code.Core.BoxGeometry
             BuildChildGroups(boxes, ProjectionAxisEnum.Y, root);
             return root.Groups[0];
         }
+        private int LoopCounter { get; set; }
         public void BuildChildGroups(List<BoundingBox> boxes, ProjectionAxisEnum axis, GroupBox parent)
         {
+            LoopCounter++;
+            if (LoopCounter > 500)
+            {
+                // Hack to avoid the StackOverflow crash which is caused by recursively calling this function.
+                // This hack will result in an image being generated without crashing the application.
+                return;
+            }
             GroupBox g = new GroupBox();
             g.IsEmpty = false;
             
